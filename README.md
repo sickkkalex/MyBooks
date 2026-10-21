@@ -122,6 +122,7 @@ Books/
 ├── desktop.py                  # app desktop (pywebview + Flask in background)
 ├── run.py                      # solo server, per il browser
 ├── main.spec                   # pacchetto PyInstaller
+├── install.sh                  # installazione come app desktop (Linux)
 ├── make_samples.py             # genera PDF/EPUB di prova
 ├── tests/                      # suite end-to-end Playwright
 └── data/                       # runtime: database, libri, copertine
@@ -238,13 +239,32 @@ Apri [http://127.0.0.1:8770](http://127.0.0.1:8770) nel browser.
 > ```
 > e importali con **Importa libri** oppure trascinandoli nella finestra.
 
-### 5. Pacchetto standalone
+### 5. Installazione come app desktop (Linux)
 
 ```bash
 venv/bin/pip install pyinstaller
-venv/bin/pyinstaller main.spec --noconfirm
-# → dist/MyBooks
+venv/bin/pyinstaller main.spec --noconfirm   # → dist/MyBooks
+./install.sh                                  # installa e crea la voce nel menu
 ```
+
+Lo script `install.sh` si occupa di tutto:
+
+| Cosa | Dove |
+|---|---|
+| Eseguibile | `~/.local/bin/mybooks` |
+| Voce nel menu applicazioni | `~/.local/share/applications/mybooks.desktop` |
+| Icona (SVG + PNG 256px) | `~/.local/share/icons/hicolor/` |
+| Libreria e database | `~/.local/share/MyBooks` |
+
+Dopo l'installazione **MyBooks** compare nel menu applicazioni (categoria *Istruzione*)
+e si avvia con `mybooks` da terminale. Per rimuoverlo:
+
+```bash
+./install.sh --uninstall
+```
+
+> 💡 I dati dell'app compilata stanno in `~/.local/share/MyBooks`, **fuori** dal pacchetto:
+> re-installare o ricompilare non fa perdere nulla.
 
 ### 6. Test end-to-end
 
