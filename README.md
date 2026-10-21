@@ -1,186 +1,389 @@
+<div align="center">
+
+<img src="frontend/public/logo.svg" alt="MyBooks Logo" width="110" />
+
 # MyBooks
 
-Libreria digitale per leggere, annotare e studiare materiale universitario.
-Interfaccia in stile **Apple Books**, backend in **Python** (Flask + SQLite),
-frontend in **HTML/CSS/JS** vanilla (nessun build step).
+**La tua libreria per leggere, annotare e studiare. Locale, elegante, sempre con te.**
 
-Tono visivo: **bianco, beige e bordeaux**, con animazioni e transizioni ispirate
-a macOS/iOS (spring easing, glass morphism, transizioni morbide).
+[![Python](https://img.shields.io/badge/Python-3.11+-3178C6?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-3.0-000000?style=flat-square&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![SQLite](https://img.shields.io/badge/SQLite-FTS5-003B57?style=flat-square&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![PyMuPDF](https://img.shields.io/badge/PyMuPDF-1.24-FFD43B?style=flat-square&logo=python&logoColor=white)](https://pymupdf.readthedocs.io/)
+[![pywebview](https://img.shields.io/badge/pywebview-5.0-8C4BFF?style=flat-square&logo=pywebview&logoColor=white)](https://pywebview.flowrl.com/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?style=flat-square&logo=javascript&logoColor=white)](https://developer.mozilla.org/)
+[![Playwright](https://img.shields.io/badge/tests-Playwright-2EAD33?style=flat-square&logo=playwright&logoColor=white)](https://playwright.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
----
+[Demo](#) · [Segnala un Bug](issues) · [Richiedi una Feature](issues)
 
-## Funzionalità
-
-### Libreria
-- Import di **PDF, EPUB, DOCX, PPTX, TXT, MD, HTML** (drag & drop, selettore file o indicizzazione di una cartella).
-- **Copertine automatiche**:
-  - PDF → prima pagina renderizzata, con ritaglio automatico dei margini bianchi;
-  - EPUB → copertina reale letta dall'OPF (`meta name="cover"`, `properties="cover-image"`, pagina di copertina XHTML) o prima immagine dell'archivio;
-  - in assenza di copertina → copertina generata in stile bordeaux/beige con titolo e autore.
-- Griglia con animazione a cascata, vista a elenco, filtri per **formato**, **collezioni** e **stato di lettura** (da leggere / in corso / completati).
-- Ricerca globale: titoli, autori, tag, note, evidenziazioni e **testo interno dei documenti** (indice FTS5).
-- Collezioni personalizzate con colore; tag per materia/argomento.
-- Schede di dettaglio con metadati, progressione e copertura.
-
-### Lettore PDF
-- Rendering ad alta risoluzione (fino a 4×) con **layer di testo invisibile** perfettamente sovrapposto: si seleziona e si evidenzia esattamente come in un editor di testo.
-- Strumenti di annotazione: **evidenziatore**, **sottolineatura**, **barrato**, **penna a mano libera** (3 spessori), **forme** (rettangolo, ellisse, linea), **caselle di testo**, **post-it**, **gomma**.
-- 8 colori di annotazione, commenti su ogni annotazione, menu contestuale con cambio colore ed eliminazione.
-- **Undo/redo** completo (⌘Z / ⇧⌘Z).
-- Zoom, navigazione a pagine, indice del documento, segnalibri, barra di avanzamento con indicatori delle annotazioni.
-
-### Lettore EPUB / DOCX / PPTX / TXT
-- Impaginazione a **colonne** con scorrimento orizzontale (come Apple Books), navigazione per "pagine".
-- Tipografia regolabile: dimensione del testo, carattere (serif/sans/mono), interlinea, **temi pagina** (bianco / beige / notte).
-- Evidenziazioni ancorate al **testo esatto** (offset + citazione): restano allineate anche cambiando carattere o dimensione.
-- Indice del documento, capitoli navigabili.
-
-### Studio
-- **Appunti**: sezione dedicata per scrivere appunti legati a un **capitolo** e a un **argomento** di un libro.
-  - Editor con libro, capitolo (con suggerimenti dall'indice), argomento, titolo, contenuto e **riferimento**.
-  - Il riferimento può contenere il brano di testo selezionato, un link esterno o un **collegamento profondo** `mybooks://libro/12?pagina=34`; l'app lo riconosce e offre "Apri nel libro".
-  - Pulsante **Appunto** nella barra del lettore: precompila libro, capitolo, posizione e il testo selezionato, poi ti porta nella sezione Appunti.
-  - Pulsanti "Incolla" (dagli appunti di sistema) e "Copia collegamento" (genera il link alla posizione corrente).
-  - Ricerca e filtro per argomento/capitolo; gli appunti sono anche inclusi nella ricerca globale.
-- **Note** per libro (con colore, argomenti, preferito) e note personali.
-- **Schede di studio** con ripetizione dilazionata (algoritmo SM-2 semplificato): creazione diretta da un'evidenziazione con un click.
-- **Statistiche**: libri, evidenziazioni, note, minuti di studio, pagine lette, grafico giornaliero.
-- **Esportazione** di note ed evidenziazioni in Markdown o JSON.
+</div>
 
 ---
 
-## Personalizzazione
+## ✨ Panoramica
 
-| Impostazione | Dove | Effetto |
-|---|---|---|
-| Tema chiaro / scuro | pulsante sole/luna nella barra in alto, oppure Impostazioni | si applica **immediatamente** |
-| Colore d'accento | Impostazioni | bordeaux, verde, blu, viola, grafite |
-| Dimensione carattere | lettore (Aa) | 70–180% |
-| Carattere (serif/sans/mono) | lettore (Aa) | solo per e-book |
-| Interlinea | lettore (Aa) | stretto / normale / ampio |
-| Aspetto pagina | lettore (Aa) | bianco / beige / notte — per i PDF è un filtro applicato alla pagina |
-| Zoom pagina | lettore (Aa) o barra in basso | 75%–340% |
+**MyBooks** è una libreria digitale full-stack per materiale universitario: importi PDF, EPUB e documenti, li leggi con un'interfaccia in stile Apple Books, li annoti scrivendoci sopra, sottolineando, evidenziando e fissando post-it, e ne ricavi appunti e schede di studio pronti per il ripasso. Backend Python, frontend HTML/CSS/JS, tutto in locale.
 
-Nei PDF il testo fa parte dell'immagine: per questo motivo il pannello tipografico mostra
-lo zoom e l'aspetto della pagina invece dei controlli sul carattere.
+> 🏠 **Niente account, niente cloud.** I tuoi documenti, le tue annotazioni e i tuoi appunti restano sul tuo computer.
 
 ---
 
-## Struttura del progetto
+## 🚀 Funzionalità
+
+| Funzionalità | Descrizione |
+|---|---|
+| 📚 **Libreria multi-formato** | Import di PDF, EPUB, DOCX, PPTX, TXT, MD e HTML via drag & drop, selettore file o indicizzazione di una cartella |
+| 🖼️ **Copertine automatiche** | Ritaglio dei margini bianchi per i PDF, lettura della copertina dall'OPF per gli EPUB, generazione bordeaux/beige per i formati senza copertina |
+| ✍️ **Evidenziatore & sottolineatura** | Selezione del testo perfettamente allineata al PDF (layer di testo invisibile con font metricamente compatibili) |
+| 🖊️ **Penna a mano libera** | Scrittura libera sul documento con 3 spessori, colore e gomma, in coordinate indipendenti dallo zoom |
+| 📌 **Post-it & forme** | Post-it con testo, rettangoli, ellissi, linee, caselle di testo modificabili e commenti su ogni annotazione |
+| 📝 **Sezione Appunti** | Appunti per **capitolo** e **argomento**, con il brano di testo o il collegamento a quella porzione del libro |
+| 🔗 **Collegamenti profondi** | `mybooks://libro/12?pagina=34` per puntare a una pagina esatta; `#libro/12/34` apre il libro dal browser |
+| 🧠 **Ripetizione dilazionata** | Schede di studio con algoritmo SM-2, creabili con un click da un'evidenziazione |
+| 🔍 **Ricerca full-text** | Motore FTS5 su titoli, note, annotazioni, appunti e **testo interno dei documenti** |
+| 📖 **Impaginazione a colonne** | E-book con scorrimento orizzontale pagina per pagina, indice e temi pagina |
+| 🎨 **Tema chiaro e scuro** | Interfaccia bordeaux/beige/bianco ispirata a macOS, con animazioni e transizioni fluide |
+| ✒️ **Tipografia regolabile** | Dimensione, carattere (serif/sans/mono), interlinea e aspetto pagina (bianco/beige/notte) |
+| 📊 **Statistiche di studio** | Libri, evidenziazioni, note, minuti di studio e grafico giornaliero |
+| ↩️ **Undo / Redo** | Storia completa delle annotazioni con scorciatoie `⌘Z` e `⇧⌘Z` |
+| 💾 **Pacchetto standalone** | Compilazione in un unico eseguibile con PyInstaller |
+| ⌨️ **Scorciatoie** | 10 combinazioni per strumenti, navigazione, ricerca e importazione |
+
+---
+
+## 🛠️ Stack Tecnologico
+
+### Frontend
+```
+HTML5 + CSS3 (custom properties, glassmorphism, animazioni spring)
+JavaScript ES6 vanilla — zero build step, zero dipendenze
+Canvas API (inchiostro) · iframe con impaginazione a colonne
+pywebview (ponte nativo per i dialog di sistema)
+```
+
+### Backend
+```
+Python 3.11+ · Flask 3 (API REST + hosting del frontend)
+SQLite 3 con WAL e indice FTS5 (ricerca full-text)
+PyMuPDF (render PDF, layer di testo, indice) · ebooklib (EPUB)
+python-docx · python-pptx · Pillow (copertine)
+```
+
+### Infrastruttura
+```
+pywebview — finestra desktop nativa (Linux/macOS/Windows)
+PyInstaller — pacchetto standalone `dist/MyBooks`
+Flask dev server — modalità browser per lo sviluppo
+```
+
+---
+
+## 🏗️ Architettura
 
 ```
 Books/
-├── backend/                 # API Python
-│   ├── app.py               # routes Flask (libreria, lettore, annotazioni, studio, export)
-│   ├── db.py                # schema SQLite + FTS5
-│   ├── library.py           # import, metadati, copertine, progressione
-│   ├── annotations.py       # annotazioni, note, segnalibri, flashcard
-│   ├── study.py             # appunti di studio + collegamenti profondi
-│   ├── docstore.py          # cache dei documenti aperti
-│   ├── config.py            # percorsi e costanti
-│   └── docs/                # gestori per formato
-│       ├── base.py          # interfaccia comune
-│       ├── pdf.py           # PyMuPDF: rendering, layer di testo, indice
-│       ├── epub.py          # ebooklib: capitoli, indice, immagini, copertina
-│       ├── office.py        # DOCX e PPTX
-│       └── plain.py         # TXT / MD / HTML
-├── frontend/                # interfaccia (vanilla JS, zero build)
-│   ├── index.html
-│   ├── css/  theme · library · reader · study
-│   └── js/   api · utils · ui · store · library · notes · appunti
-│             flashcards · search · pdfview · reflow · reader · app
-├── desktop.py               # app desktop (pywebview + Flask in background)
-├── run.py                   # solo server (per il browser)
-├── tests/                   # smoke test Playwright
-├── make_samples.py          # genera PDF/EPUB di prova
-└── data/                    # database, libri importati, copertine (runtime)
+├── backend/                    # API Python (Flask)
+│   ├── app.py                  # 50 route: libreria, lettore, annotazioni, studio, export
+│   ├── db.py                   # schema SQLite + FTS5
+│   ├── library.py              # import, metadati, copertine, progressione
+│   ├── annotations.py          # annotazioni, note, segnalibri, flashcard (SM-2)
+│   ├── study.py                # appunti di studio + collegamenti profondi
+│   ├── docstore.py             # cache dei documenti aperti
+│   ├── config.py               # percorsi e costanti
+│   └── docs/                   # gestori per formato
+│       ├── base.py             # interfaccia comune
+│       ├── pdf.py              # rendering, layer di testo, indice
+│       ├── epub.py             # capitoli, indice, immagini, copertina
+│       ├── office.py           # DOCX e PPTX
+│       └── plain.py            # TXT / MD / HTML
+├── frontend/                   # interfaccia (vanilla JS, zero build)
+│   ├── index.html              # shell dell'applicazione
+│   ├── public/logo.svg         # logo
+│   ├── css/
+│   │   ├── theme.css           # token, colori, animazioni, modali
+│   │   ├── library.css         # griglia, schede, lista, statistiche
+│   │   ├── reader.css          # lettore, toolbox, annotazioni, pannelli
+│   │   └── study.css           # note, appunti, schede, revisione
+│   └── js/
+│       ├── api.js              # client HTTP
+│       ├── utils.js            # helper DOM e formattazione
+│       ├── ui.js               # modali, toast, conferme
+│       ├── store.js            # stato applicativo + bus eventi
+│       ├── library.js          # vista libreria
+│       ├── notes.js            # sezione note
+│       ├── appunti.js          # sezione appunti
+│       ├── flashcards.js       # schede e ripetizione dilazionata
+│       ├── search.js           # ricerca globale
+│       ├── pdfview.js          # rendering PDF + strumenti annotazione
+│       ├── reflow.js           # lettore a colonne (EPUB/DOCX/PPTX)
+│       ├── reader.js           # controller del lettore
+│       └── app.js              # routing e avvio
+├── desktop.py                  # app desktop (pywebview + Flask in background)
+├── run.py                      # solo server, per il browser
+├── main.spec                   # pacchetto PyInstaller
+├── make_samples.py             # genera PDF/EPUB di prova
+├── tests/                      # suite end-to-end Playwright
+└── data/                       # runtime: database, libri, copertine
 ```
 
 ---
 
-## Avvio
+## 📊 Schema Database
 
-### Desktop (finestra nativa)
+```sql
+CREATE TABLE books (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    title         TEXT NOT NULL,
+    author        TEXT NOT NULL DEFAULT '',
+    format        TEXT NOT NULL DEFAULT 'pdf',   -- pdf | epub | docx | pptx | txt
+    path          TEXT NOT NULL,
+    cover         TEXT DEFAULT '',
+    tags          TEXT NOT NULL DEFAULT '',
+    collection_id INTEGER REFERENCES collections(id) ON DELETE SET NULL,
+    state         TEXT NOT NULL DEFAULT 'unread', -- unread | reading | finished
+    current_page  INTEGER NOT NULL DEFAULT 0,
+    total_pages   INTEGER NOT NULL DEFAULT 0,
+    progress      REAL NOT NULL DEFAULT 0,
+    metadata      TEXT NOT NULL DEFAULT '{}',
+    added_at      TEXT NOT NULL,
+    updated_at    TEXT NOT NULL,
+    last_opened   TEXT
+);
+
+CREATE TABLE annotations (
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id   INTEGER NOT NULL REFERENCES books(id) ON DELETE CASCADE,
+    type      TEXT NOT NULL,   -- highlight | underline | strikeout | square
+                             -- | circle | ink | text | postit
+    page      INTEGER NOT NULL DEFAULT 0,
+    color     TEXT NOT NULL DEFAULT '#E9C46A',
+    rects     TEXT NOT NULL DEFAULT '[]',  -- bounding box in punti PDF
+    points    TEXT NOT NULL DEFAULT '[]',  -- tracciato della penna
+    text      TEXT NOT NULL DEFAULT '',    -- testo selezionato
+    anchor    TEXT NOT NULL DEFAULT '{}',  -- offset nel capitolo (e-book)
+    comment   TEXT NOT NULL DEFAULT '',
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+CREATE TABLE study_notes (        -- Appunti: capitolo + argomento
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id   INTEGER REFERENCES books(id) ON DELETE CASCADE,
+    chapter   TEXT NOT NULL DEFAULT '',
+    topic     TEXT NOT NULL DEFAULT '',
+    title     TEXT NOT NULL DEFAULT '',
+    body      TEXT NOT NULL DEFAULT '',
+    reference TEXT NOT NULL DEFAULT '',   -- brano, link o mybooks://
+    page      INTEGER NOT NULL DEFAULT 0,
+    color     TEXT NOT NULL DEFAULT '#F4EBDD',
+    tags      TEXT NOT NULL DEFAULT '',
+    pinned    INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+CREATE TABLE notes ( ... );     -- note per libro e note personali
+CREATE TABLE bookmarks ( ... );  -- segnalibri
+CREATE TABLE flashcards ( ... ); -- schede SM-2: ease, interval, reps, due
+CREATE TABLE collections ( ... );
+CREATE TABLE reading_sessions ( ... );  -- minuti di studio per giorno
+CREATE TABLE settings ( key TEXT PRIMARY KEY, value TEXT );
+CREATE VIRTUAL TABLE search_fts USING fts5(
+    book_id UNINDEXED, kind UNINDEXED, ref UNINDEXED, title, body
+);
+```
+
+---
+
+## ⚡ Avvio Rapido
+
+### Prerequisiti
+- [Python 3.11+](https://www.python.org/downloads/)
+- Un display per la modalità desktop (opzionale: si può usare nel browser)
+
+### 1. Clona il repository
+
+```bash
+git clone https://github.com/sickkkalex/MyBooks.git
+cd MyBooks
+```
+
+### 2. Prepara l'ambiente
+
 ```bash
 python3 -m venv venv
 venv/bin/pip install -r requirements.txt
+```
+
+### 3. Avvia l'app desktop
+
+```bash
 venv/bin/python desktop.py
 ```
 
-### Server + browser
+Si apre la finestra nativa con la libreria vuota. Il server locale si avvia automaticamente su una porta libera.
+
+### 4. Oppure: modalità browser (sviluppo)
+
 ```bash
-venv/bin/python run.py --port 8770     # http://127.0.0.1:8770
+venv/bin/python run.py --port 8770
 ```
 
-### Sviluppo
-```bash
-venv/bin/python make_samples.py         # documenti di prova in samples/
-./dev-server.sh                         # riavvia il server in background
-venv/bin/python tests/smoke.py          # smoke test end-to-end (Playwright)
-venv/bin/python tests/test_annotate.py  # selezione del testo ed evidenziazioni
-venv/bin/python tests/test_appunti.py   # sezione Appunti e collegamenti profondi
-venv/bin/python tests/test_settings.py   # tema, tipografia, copertine
-venv/bin/python tests/test_study.py      # ricerca, schede, ripetizione dilazionata
-venv/bin/python tests/test_progress.py   # salvataggio della progressione
-venv/bin/python tests/gallery.py        # screenshot di tutte le viste
-```
+Apri [http://127.0.0.1:8770](http://127.0.0.1:8770) nel browser.
 
-> I test usano Playwright con il Chromium di sistema: `venv/bin/pip install playwright`.
+> 🔁 **Prova subito:** genera documenti di prova (PDF + EPUB con copertina) con
+> ```bash
+> venv/bin/python make_samples.py
+> ```
+> e importali con **Importa libri** oppure trascinandoli nella finestra.
 
-### Pacchetto standalone (PyInstaller)
+### 5. Pacchetto standalone
+
 ```bash
+venv/bin/pip install pyinstaller
 venv/bin/pyinstaller main.spec --noconfirm
 # → dist/MyBooks
 ```
 
----
+### 6. Test end-to-end
 
-## Scorciatoie
-
-| Tasto | Azione |
-|---|---|
-| `V` | seleziona / sposta |
-| `H` | evidenzia |
-| `U` | sottolinea |
-| `S` | barrato |
-| `R` | forma |
-| `P` | penna |
-| `T` | casella di testo |
-| `N` | post-it |
-| `E` | gomma |
-| `←` `→` / spazio | pagina precedente / successiva |
-| `⌘Z` / `⇧⌘Z` | annulla / ripeti |
-| `⌘K` | ricerca globale |
-| `⌘O` | importa libri |
-| `Esc` | chiudi il lettore |
-
----
-
-## Appunti e collegamenti
-
-Ogni appunto può puntare a una porzione precisa del libro:
-
-```
-mybooks://libro/12?pagina=34
+```bash
+venv/bin/pip install playwright
+venv/bin/python make_samples.py
+./dev-server.sh                    # server in background
+venv/bin/python tests/smoke.py     # libreria, lettore PDF ed EPUB
+venv/bin/python tests/test_annotate.py
+venv/bin/python tests/test_appunti.py
+venv/bin/python tests/test_settings.py
+venv/bin/python tests/test_study.py
+venv/bin/python tests/test_progress.py
+venv/bin/python tests/gallery.py   # screenshot di tutte le viste
 ```
 
-- nel lettore, il pulsante **Appunto** (icona foglio) crea l'appunto già compilato con libro, capitolo, posizione e il testo selezionato;
-- il campo **Riferimento** accetta il brano, un link esterno o il collegamento profondo: l'app lo riconosce e mostra il pulsante "Apri nel libro";
-- l'indirizzo del browser accetta la forma `#libro/12/34` e apre il libro alla pagina 34.
+---
+
+## ⚙️ Variabili d'Ambiente
+
+| Variabile | Default | Descrizione |
+|---|---|---|
+| `MYBOOKS_PORT` | `8770` | Porta del server locale |
+| `MYBOOKS_DATA_DIR` | `./data` | Cartella di database, libri importati e copertine |
+| `MYBOOKS_FRONTEND_DIR` | `./frontend` | Percorso dell'interfaccia web |
+
+```bash
+# Esempio: libreria su un disco esterno
+MYBOOKS_DATA_DIR=/mnt/disco/MyBooks venv/bin/python desktop.py
+```
+
+> **Nota:** tutto ciò che non viene escluso da `.gitignore` finisce nel repository.
+> `data/`, `venv/`, `build/`, `dist/` e `samples/` sono già esclusi.
 
 ---
 
-## Dati
+## 📡 API Reference
 
-Tutto è locale: SQLite (`data/mybooks.db`), documenti importati in `data/books/`,
-copertine in `data/covers/`. Per spostare la libreria basta copiare la cartella `data/`
-oppure impostare `MYBOOKS_DATA_DIR`.
+Tutte le risposte sono JSON. Il backend è locale e non espone dati di autenticazione.
+
+### Libreria
+| Metodo | Endpoint | Descrizione |
+|---|---|---|
+| `GET` | `/api/books` | Lista i libri (filtri `q`, `state`, `collection`, `sort`) |
+| `POST` | `/api/books/import` | Importa file (multipart) |
+| `POST` | `/api/books/scan` | Indicizza una cartella |
+| `GET` | `/api/books/:id` | Dettagli di un libro |
+| `PATCH` | `/api/books/:id` | Modifica titolo, autore, tag, collezione, stato |
+| `DELETE` | `/api/books/:id` | Elimina libro e annotazioni |
+| `GET` | `/api/books/:id/cover` | Copertina (JPEG) |
+| `GET` | `/api/books/:id/file` | File originale |
+| `POST` | `/api/books/:id/progress` | Salva la posizione di lettura |
+
+### Lettore
+| Metodo | Endpoint | Descrizione |
+|---|---|---|
+| `GET` | `/api/books/:id/document` | Metadati, indice, pagine o capitoli |
+| `GET` | `/api/books/:id/page/:n` | Pagina renderizzata (PNG, `?zoom=`) |
+| `GET` | `/api/books/:id/thumbnail/:n` | Miniatura (JPEG) |
+| `GET` | `/api/books/:id/text/:n` | Layer di testo con bounding box |
+| `GET` | `/api/books/:id/chapter/:i` | HTML del capitolo (e-book) |
+| `GET` | `/api/books/:id/chapter/:i/text` | Testo semplice del capitolo |
+| `GET` | `/api/books/:id/outline` | Indice del documento |
+
+### Annotazioni
+| Metodo | Endpoint | Descrizione |
+|---|---|---|
+| `GET` | `/api/books/:id/annotations` | Annotazioni (filtro `?page=`) |
+| `POST` | `/api/books/:id/annotations` | Crea annotazione |
+| `PATCH` | `/api/annotations/:aid` | Modifica colore, commento, testo |
+| `DELETE` | `/api/annotations/:aid` | Elimina annotazione |
+| `POST` | `/api/books/:id/annotations/clear` | Svuota le annotazioni di una pagina |
+
+### Studio
+| Metodo | Endpoint | Descrizione |
+|---|---|---|
+| `GET` | `/api/study-notes` | Appunti (filtri `book_id`, `q`) |
+| `POST` | `/api/study-notes` | Crea appunto |
+| `PATCH` | `/api/study-notes/:id` | Modifica appunto |
+| `DELETE` | `/api/study-notes/:id` | Elimina appunto |
+| `GET` | `/api/study-notes/link` | Genera un collegamento profondo |
+| `GET` | `/api/notes` · `POST` · `PATCH` · `DELETE` | Note per libro e personali |
+| `GET` | `/api/flashcards` · `POST` · `PATCH` · `DELETE` | Schede di studio |
+| `POST` | `/api/flashcards/:id/review` | Valuta una scheda (SM-2) |
+| `GET` | `/api/books/:id/bookmarks` · `POST` · `DELETE` | Segnalibri |
+| `GET` | `/api/search?q=` | Ricerca globale |
+| `GET` | `/api/stats` | Statistiche di studio |
+| `GET` | `/api/export?format=markdown\|json` | Esporta note ed evidenziazioni |
+
+### Sistema
+| Metodo | Endpoint | Descrizione |
+|---|---|---|
+| `GET` | `/api/settings` · `PUT` | Impostazioni (tema, tipografia, accento) |
+| `GET` | `/api/collections` · `POST` · `PATCH` · `DELETE` | Collezioni |
+| `POST` | `/api/session` | Registra minuti di studio |
 
 ---
 
-## Note tecniche
+## 🗺️ Roadmap
 
-- Le coordinate delle annotazioni sono espresse in **punti PDF** (indipendenti dallo zoom) e trasformate in pixel al momento del rendering: le annotazioni restano allineate a qualunque livello di zoom.
-- Il layer di testo del PDF usa la famiglia di font **metricamente compatibile** con quella del documento (Helvetica/Arial, Times/Liberation Serif, Courier) così la selezione cade esattamente sulle parole.
-- Il testo selezionato dentro l'EPUB viene ancorato tramite **offset assoluto + citazione**: se l'offset non è più valido si ripiega sulla ricerca del testo.
-- I documenti aperti restano in cache (`docstore`) per evitare di rileggere gli EPUB a ogni richiesta.
+- [x] Lettore PDF con layer di testo e annotazioni complete
+- [x] Lettore EPUB/DOCX/PPTX con impaginazione a colonne
+- [x] Sezione Appunti con collegamenti profondi
+- [x] Schede di studio con ripetizione dilazionata (SM-2)
+- [x] Ricerca full-text sui documenti (FTS5)
+- [x] Tema chiaro/scuro e tipografia regolabile
+- [x] Pacchetto standalone (PyInstaller)
+- [ ] Drag & drop delle note tra libri e collezioni
+- [ ] Esportazione in PDF con annotazioni incluse
+- [ ] Sincronizzazione opzionale via WebDAV
+- [ ] Riconoscimento ottico (OCR) per PDF scansionati
+- [ ] Sottotitoli e trascrizione per le lezioni audio
+- [ ] Modo presentazione a schermo intero
+- [ ] Plugin per dizionario e Wikipedia contestuale
+
+---
+
+## 🤝 Contribuire
+
+I contributi sono i benvenuti! Per proporre una modifica:
+
+1. Fai un **fork** del repository
+2. Crea un branch: `git checkout -b feature/nuova-feature`
+3. Committa le modifiche: `git commit -m 'feat: aggiungi nuova feature'`
+4. Pusha il branch: `git push origin feature/nuova-feature`
+5. Apri una **Pull Request**
+
+---
+
+## 📄 Licenza
+
+Distribuito sotto licenza **MIT**. Vedi [`LICENSE`](LICENSE) per maggiori dettagli.
+
+---
+
+<div align="center">
+
+Fatto con ❤️ da **Alessio**
+
+*MyBooks — Leggi, annota, studia. Tutto sul tuo computer.*
+
+</div>

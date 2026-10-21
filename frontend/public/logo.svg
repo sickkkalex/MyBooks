@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="MyBooks">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#A33750"/>
+      <stop offset=".5" stop-color="#6E1E2E"/>
+      <stop offset="1" stop-color="#3C1019"/>
+    </linearGradient>
+    <linearGradient id="left" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FEFAF4"/>
+      <stop offset="1" stop-color="#EADCC9"/>
+    </linearGradient>
+    <linearGradient id="right" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#DCCBB4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="200" height="200" rx="46" fill="url(#bg)"/>
+
+  <!-- dorso del libro -->
+  <path d="M100 78c-13-12-31-17-48-17v72c17 0 35 5 48 18 13-13 31-18 48-18V61c-17 0-35 5-48 17z"
+        fill="#2A0A12" opacity=".22"/>
+
+  <!-- libro aperto -->
+  <path d="M100 74c-13-12-31-17-48-17v72c17 0 35 5 48 18z" fill="url(#left)"/>
+  <path d="M100 74c13-12 31-17 48-17v72c-17 0-35 5-48 18z" fill="url(#right)"/>
+
+  <!-- righe di testo sulla pagina sinistra -->
+  <g stroke="#B08A63" stroke-width="6" stroke-linecap="round" opacity=".7">
+    <path d="M66 82h22M66 96h22M66 110h16M66 124h20"/>
+  </g>
+
+  <!-- segnalibro oro sulla pagina destra -->
+  <path d="M132 84v40l-7-8-7 8V84z" fill="#C9A227"/>
+
+  <!-- pennarello / annotazione sulla pagina destra -->
+  <g stroke="#8E2B3F" stroke-width="7" stroke-linecap="round" opacity=".85">
+    <path d="M112 118h24"/>
+  </g>
+</svg>
