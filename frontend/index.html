@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MyBooks</title>
+<link rel="stylesheet" href="/css/theme.css">
+<link rel="stylesheet" href="/css/library.css">
+<link rel="stylesheet" href="/css/reader.css">
+<link rel="stylesheet" href="/css/study.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%236E1E2E'/><path d='M28 24h20a12 12 0 0 1 12 12v40a10 10 0 0 0-10-10H28z' fill='%23F6EFE4'/><path d='M72 24H52a12 12 0 0 0-12 12v40a10 10 0 0 1 10-10h22z' fill='%23fff' opacity='.55'/></svg>">
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- ══════════════════════════ SIDEBAR ══════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__head">
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 100 100" width="26" height="26">
+            <rect width="100" height="100" rx="24" fill="#6E1E2E"/>
+            <path d="M26 22h21a13 13 0 0 1 13 13v43a11 11 0 0 0-11-11H26z" fill="#F6EFE4"/>
+            <path d="M74 22H53a13 13 0 0 0-13 13v43a11 11 0 0 1 11-11h23z" fill="#fff" opacity=".5"/>
+          </svg>
+        </span>
+        <span class="brand__name">MyBooks</span>
+      </div>
+      <button class="icon-btn" id="btn-collapse" title="Comprimi barra laterale" aria-label="Comprimi barra laterale">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M14.5 7.5 10 12l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <nav class="sidebar__nav" id="sidebar-nav">
+      <button class="nav-item is-active" data-view="library">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H5.5A1.5 1.5 0 0 1 4 15.5zM20 5.5A1.5 1.5 0 0 0 18.5 4H14a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h4.5a1.5 1.5 0 0 0 1.5-1.5z" fill="currentColor"/></svg>
+        <span class="nav-item__label">Libreria</span>
+      </button>
+      <button class="nav-item" data-view="reading">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M4 6a2 2 0 0 1 2-2h5v16H6a2 2 0 0 1-2-2z" fill="currentColor" opacity=".45"/><path d="M12 4h5.5A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5H12z" fill="currentColor"/></svg>
+        <span class="nav-item__label">In lettura</span>
+        <span class="nav-item__badge" id="badge-reading"></span>
+      </button>
+      <button class="nav-item" data-view="notes">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M5 3.5h9.5L20 9v11.5H5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 3.5V9h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.5 13h7M8.5 16.5h4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span class="nav-item__label">Note</span>
+        <span class="nav-item__badge" id="badge-notes"></span>
+      </button>
+      <button class="nav-item" data-view="appunti">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H19v16H5.5A1.5 1.5 0 0 1 4 18.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 9h7M8 12.5h7M8 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="nav-item__label">Appunti</span>
+        <span class="nav-item__badge" id="badge-appunti"></span>
+      </button>
+      <button class="nav-item" data-view="flashcards">
+        <svg viewBox="0 0 24 24" width="19" height="19"><rect x="3" y="7" width="13" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7.5 4.5h11a2.5 2.5 0 0 1 2.5 2.5v9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M8 12.5h4M8 15.5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="nav-item__label">Schede</span>
+        <span class="nav-item__badge" id="badge-flashcards"></span>
+      </button>
+      <button class="nav-item" data-view="search">
+        <svg viewBox="0 0 24 24" width="19" height="19"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span class="nav-item__label">Ricerca</span>
+      </button>
+      <button class="nav-item" data-view="stats">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M4 19.5h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="6" y="11" width="3.4" height="6" rx="1.2" fill="currentColor"/><rect x="11" y="7" width="3.4" height="10" rx="1.2" fill="currentColor" opacity=".7"/><rect x="16" y="13" width="3.4" height="4" rx="1.2" fill="currentColor" opacity=".45"/></svg>
+        <span class="nav-item__label">Statistiche</span>
+      </button>
+    </nav>
+
+    <div class="sidebar__section">
+      <div class="sidebar__section-title">
+        <span>Collezioni</span>
+        <button class="icon-btn icon-btn--tiny" id="btn-new-collection" title="Nuova collezione">
+          <svg viewBox="0 0 24 24" width="15" height="15"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="collection-list" id="collection-list"></div>
+    </div>
+
+    <div class="sidebar__section sidebar__section--grow">
+      <div class="sidebar__section-title"><span>Per formato</span></div>
+      <div class="format-list" id="format-list">
+        <button class="chip" data-format="pdf">PDF</button>
+        <button class="chip" data-format="epub">EPUB</button>
+        <button class="chip" data-format="docx">DOCX</button>
+        <button class="chip" data-format="pptx">PPTX</button>
+        <button class="chip" data-format="txt">TXT</button>
+      </div>
+    </div>
+
+    <div class="sidebar__foot">
+      <button class="nav-item nav-item--muted" id="btn-import">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M12 16V4m0 0L8 8m4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span class="nav-item__label">Importa libri</span>
+      </button>
+      <button class="nav-item nav-item--muted" id="btn-settings">
+        <svg viewBox="0 0 24 24" width="19" height="19"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M19.4 14a1.6 1.6 0 0 0 .32 1.77l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.6 1.6 0 0 0-1.77-.32 1.6 1.6 0 0 0-1 1.47V20a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 9.1 18.4a1.6 1.6 0 0 0-1.77.32l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.6 1.6 0 0 0 4.6 14a1.6 1.6 0 0 0-1.47-1H3a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 8.9a1.6 1.6 0 0 0-.32-1.77l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.6 1.6 0 0 0 8.9 4.6 1.6 1.6 0 0 0 9.87 3.1V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.47 1.6 1.6 0 0 0 1.77-.32l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.6 1.6 0 0 0-.32 1.77v.08a1.6 1.6 0 0 0 1.47 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.47 1z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span class="nav-item__label">Impostazioni</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════ MAIN ══════════════════════════ -->
+  <main class="main">
+    <header class="toolbar" id="toolbar">
+      <div class="toolbar__left">
+        <button class="icon-btn toolbar__toggle" id="btn-sidebar" title="Mostra/nascondi barra" aria-label="Mostra/nascondi barra">
+          <svg viewBox="0 0 24 24" width="19" height="19"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div class="segmented" id="segmented">
+          <button class="segmented__item is-active" data-filter="all">Tutti</button>
+          <button class="segmented__item" data-filter="unread">Da leggere</button>
+          <button class="segmented__item" data-filter="reading">In corso</button>
+          <button class="segmented__item" data-filter="finished">Completati</button>
+        </div>
+      </div>
+      <div class="toolbar__right">
+        <div class="search-field" id="search-field">
+          <svg viewBox="0 0 24 24" width="16" height="16" class="search-field__icon"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <input type="search" id="library-search" placeholder="Cerca nella libreria" autocomplete="off">
+          <button class="search-field__clear" id="search-clear" aria-label="Cancella">
+            <svg viewBox="0 0 24 24" width="14" height="14"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div class="view-toggle" id="view-toggle">
+          <button class="icon-btn is-active" data-layout="grid" title="Vista a griglia">
+            <svg viewBox="0 0 24 24" width="18" height="18"><rect x="4" y="4" width="7" height="7" rx="1.6" fill="currentColor"/><rect x="13" y="4" width="7" height="7" rx="1.6" fill="currentColor" opacity=".55"/><rect x="4" y="13" width="7" height="7" rx="1.6" fill="currentColor" opacity=".55"/><rect x="13" y="13" width="7" height="7" rx="1.6" fill="currentColor"/></svg>
+          </button>
+          <button class="icon-btn" data-layout="list" title="Vista a elenco">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 6.5h16M4 12h16M4 17.5h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <button class="icon-btn" id="btn-theme" title="Tema chiaro / scuro">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="views" id="views">
+      <!-- LIBRERIA -->
+      <section class="view is-active" id="view-library">
+        <div class="library-grid" id="library-grid"></div>
+        <div class="empty-state" id="library-empty" hidden>
+          <div class="empty-state__art">
+            <svg viewBox="0 0 120 90" width="150" height="112">
+              <rect x="14" y="16" width="34" height="60" rx="4" fill="#E9DED0"/>
+              <rect x="52" y="10" width="34" height="66" rx="4" fill="#D9C7B6"/>
+              <rect x="90" y="22" width="24" height="54" rx="4" fill="#C7B09C"/>
+              <rect x="14" y="16" width="34" height="60" rx="4" rx="4" fill="none" stroke="#B9A288"/>
+              <path d="M58 26h22M58 36h22M58 46h14" stroke="#9A8470" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h2>La tua libreria è vuota</h2>
+          <p>Importa PDF, EPUB, DOCX, PPTX o documenti di testo per iniziare a leggere, annotare e studiare.</p>
+          <div class="empty-state__actions">
+            <button class="btn btn--primary" id="btn-import-empty">Importa libri</button>
+            <button class="btn btn--ghost" id="btn-scan-empty">Aggiungi cartella</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- IN LETTURA -->
+      <section class="view" id="view-reading">
+        <div class="section-head"><h2>Continua a leggere</h2></div>
+        <div class="library-grid" id="reading-grid"></div>
+        <div class="empty-state" id="reading-empty" hidden><h2>Nessun libro in corso</h2><p>Apri un libro dalla libreria per ritrovarlo qui.</p></div>
+      </section>
+
+      <!-- RICERCA -->
+      <section class="view" id="view-search">
+        <div class="search-hero">
+          <div class="search-field search-field--lg">
+            <svg viewBox="0 0 24 24" width="20" height="20" class="search-field__icon"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input type="search" id="global-search" placeholder="Cerca in libri, note, evidenziazioni…" autocomplete="off">
+          </div>
+          <div class="search-scope" id="search-scope">
+            <button class="chip is-active" data-scope="all">Tutto</button>
+            <button class="chip" data-scope="books">Libri</button>
+            <button class="chip" data-scope="notes">Note</button>
+            <button class="chip" data-scope="appunti">Appunti</button>
+            <button class="chip" data-scope="passages">Testo</button>
+          </div>
+        </div>
+        <div id="search-results" class="search-results"></div>
+      </section>
+
+      <!-- NOTE -->
+      <section class="view" id="view-notes">
+        <div class="section-head">
+          <h2>Note</h2>
+          <div class="section-head__actions">
+            <button class="btn btn--ghost btn--sm" id="btn-export-notes" title="Esporta note ed evidenziazioni">Esporta</button>
+            <button class="btn btn--primary btn--sm" id="btn-new-note">Nuova nota</button>
+          </div>
+        </div>
+        <div class="notes-layout">
+          <div class="notes-grid" id="notes-grid"></div>
+        </div>
+      </section>
+
+      <!-- APPUNTI -->
+      <section class="view" id="view-appunti">
+        <div class="section-head">
+          <h2>Appunti</h2>
+          <div class="section-head__actions">
+            <div class="search-field">
+              <svg viewBox="0 0 24 24" width="16" height="16" class="search-field__icon"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <input type="search" id="appunti-search" placeholder="Cerca tra gli appunti" autocomplete="off">
+            </div>
+            <button class="btn btn--primary btn--sm" id="btn-new-appunto">Nuovo appunto</button>
+          </div>
+        </div>
+        <div class="appunti-layout">
+          <div class="appunti-list" id="appunti-list"></div>
+          <div class="appunti-editor" id="appunti-editor"></div>
+        </div>
+      </section>
+
+      <!-- SCHEDE -->
+      <section class="view" id="view-flashcards">
+        <div class="section-head">
+          <h2>Schede di studio</h2>
+          <div class="section-head__actions">
+            <button class="btn btn--ghost btn--sm" id="btn-new-card">Nuova scheda</button>
+            <button class="btn btn--primary btn--sm" id="btn-review">Ripassa</button>
+          </div>
+        </div>
+        <div class="cards-layout">
+          <div class="cards-list" id="cards-list"></div>
+        </div>
+      </section>
+
+      <!-- STATISTICHE -->
+      <section class="view" id="view-stats">
+        <div class="section-head"><h2>Statistiche di studio</h2></div>
+        <div class="stats-grid" id="stats-grid"></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<!-- ══════════════════════════ READER ══════════════════════════ -->
+<div class="reader" id="reader" hidden>
+  <header class="reader__bar reader__bar--top">
+    <button class="icon-btn" id="btn-reader-close" title="Chiudi (Esc)">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M14.5 6.5 10 12l4.5 5.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="reader__title">
+      <span class="reader__book" id="reader-book-title"></span>
+      <span class="reader__loc" id="reader-location"></span>
+    </div>
+    <div class="reader__actions">
+      <button class="icon-btn" id="btn-toc" title="Indice">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M4 6h16M4 12h16M4 18h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-bookmark" title="Aggiungi segnalibro">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M7 4.5h10a1 1 0 0 1 1 1V20l-6-3.6L6 20V5.5a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-typography" title="Testo e tema">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M4 18 9 6l5 12M6 14.5h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 18 19 10l3.5 8M16.6 15.5h4.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-appunto" title="Crea un appunto su questa pagina">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H19v16H5.5A1.5 1.5 0 0 1 4 18.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 9h7M8 12.5h5M8 16h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M15.5 14.5v5M13 17h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-notes-panel" title="Note del libro">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M5 4h11l3 3v13H5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.5 10h7M8.5 13.5h7M8.5 17h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="reader__body">
+    <!-- colonna sinistra: strumenti annotazione -->
+    <div class="toolbox" id="toolbox">
+      <button class="tool" data-tool="pointer" title="Seleziona / sposta (V)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="m6 3.5 12.5 8.2-5.4 1.1-2.6 5z" fill="currentColor"/></svg>
+      </button>
+      <span class="toolbox__sep"></span>
+      <button class="tool" data-tool="highlight" title="Evidenzia (H)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 17.5h16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M6 13.5 13 6.5l4.5 4.5-7 7H6z" fill="currentColor" opacity=".55"/></svg>
+      </button>
+      <button class="tool" data-tool="underline" title="Sottolinea (U)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 4v7a5 5 0 0 0 10 0V4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M5 20h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+      <button class="tool" data-tool="strikeout" title="Barrato (S)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 12h16" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M8 8.5A4 4 0 0 1 12 5c2.5 0 4 1.2 4 3M16 15.5A4 4 0 0 1 12 19c-2.6 0-4-1.3-4-3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </button>
+      <button class="tool" data-tool="shape" title="Forme (R)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><rect x="4" y="5" width="16" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/></svg>
+      </button>
+      <button class="tool" data-tool="pen" title="Penna (P)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 20l1.2-4.2L15.4 5.6a2.3 2.3 0 0 1 3.2 3.2L8.4 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m13.8 7.2 3.2 3.2" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <span class="toolbox__sep"></span>
+      <button class="tool" data-tool="text" title="Testo (T)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M5 6.5V5h14v1.5M12 5v14M9 19h6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="tool" data-tool="postit" title="Post-it (N)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M5 5h14v9l-5 5H5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 19v-5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="tool" data-tool="eraser" title="Gomma (E)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="m14 5 5 5-8 8H6l-3-3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 18h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <span class="toolbox__sep"></span>
+      <button class="tool" id="btn-undo" title="Annulla (⌘Z)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 7 4.5 11.5 9 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.5 11.5H14a5.5 5.5 0 0 1 0 11h-3" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+      </button>
+      <button class="tool" id="btn-redo" title="Ripeti (⇧⌘Z)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="m15 7 4.5 4.5L15 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.5 11.5H10a5.5 5.5 0 0 0 0 11h3" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <!-- colonna centrale: contenuto -->
+    <div class="stage" id="stage">
+      <div class="stage__inner" id="stage-inner">
+        <div class="page-wrap" id="page-wrap" hidden>
+          <div class="page" id="page">
+            <img class="page__img" id="page-img" alt="Pagina">
+            <div class="page__text" id="page-text"></div>
+            <canvas class="page__ink" id="page-ink"></canvas>
+            <div class="page__anno" id="page-anno"></div>
+          </div>
+        </div>
+        <iframe class="reflow" id="reflow" title="Contenuto del libro" hidden></iframe>
+      </div>
+      <button class="page-nav page-nav--prev" id="btn-prev" aria-label="Pagina precedente">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="page-nav page-nav--next" id="btn-next" aria-label="Pagina successiva">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <!-- colonna destra: pannelli -->
+    <aside class="panel" id="panel" hidden>
+      <div class="panel__tabs">
+        <button class="panel__tab is-active" data-panel="toc">Indice</button>
+        <button class="panel__tab" data-panel="notes">Note</button>
+        <button class="panel__tab" data-panel="marks">Evidenziazioni</button>
+        <button class="panel__tab" data-panel="cards">Schede</button>
+      </div>
+      <div class="panel__body" id="panel-body"></div>
+    </aside>
+  </div>
+
+  <footer class="reader__bar reader__bar--bottom">
+    <div class="scrubber">
+      <button class="icon-btn icon-btn--tiny" id="btn-zoom-out">−</button>
+      <div class="scrubber__track" id="scrubber-track">
+        <div class="scrubber__fill" id="scrubber-fill"></div>
+        <div class="scrubber__thumbs" id="scrubber-thumbs"></div>
+        <div class="scrubber__thumb" id="scrubber-thumb"></div>
+      </div>
+      <button class="icon-btn icon-btn--tiny" id="btn-zoom-in">+</button>
+    </div>
+    <div class="reader__meta">
+      <span id="reader-progress-text">—</span>
+      <button class="icon-btn icon-btn--tiny" id="btn-theme-toggle" title="Tema pagina">
+        <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 4.5a7.5 7.5 0 0 1 0 15z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </footer>
+
+  <!-- pannelli fluttuanti -->
+  <div class="palette" id="palette" hidden>
+    <div class="palette__row" id="palette-colors"></div>
+    <div class="palette__row palette__row--widths" id="palette-widths">
+      <span class="palette__label">Spessore</span>
+      <button class="width-opt" data-width="1.5" title="Sottile"><i style="height:2px"></i></button>
+      <button class="width-opt is-active" data-width="2.6" title="Medio"><i style="height:4px"></i></button>
+      <button class="width-opt" data-width="4.5" title="Spesso"><i style="height:7px"></i></button>
+    </div>
+    <div class="palette__row palette__row--opts">
+      <span class="palette__shapes" id="palette-shapes">
+        <button class="palette__opt is-active" id="opt-shape-rect" title="Rettangolo">
+          <svg viewBox="0 0 24 24" width="17" height="17"><rect x="4" y="6" width="16" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.9"/></svg>
+        </button>
+        <button class="palette__opt" id="opt-shape-ellipse" title="Ellisse">
+          <svg viewBox="0 0 24 24" width="17" height="17"><ellipse cx="12" cy="12" rx="8" ry="6" fill="none" stroke="currentColor" stroke-width="1.9"/></svg>
+        </button>
+        <button class="palette__opt" id="opt-shape-line" title="Linea">
+          <svg viewBox="0 0 24 24" width="17" height="17"><path d="M5 19 19 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+        </button>
+        <span class="palette__sep"></span>
+      </span>
+      <button class="palette__opt" id="opt-undo" title="Annulla">↺</button>
+    </div>
+  </div>
+
+  <div class="popover" id="typography-popover" hidden>
+    <p class="popover__hint" id="typography-hint"></p>
+    <div class="popover__group popover__group--size">
+      <span class="popover__label">Dimensione</span>
+      <div class="popover__row">
+        <button class="icon-btn icon-btn--tiny" data-typo="font-smaller">A−</button>
+        <span class="popover__value" id="typo-size">100%</span>
+        <button class="icon-btn icon-btn--tiny" data-typo="font-larger">A+</button>
+      </div>
+    </div>
+    <div class="popover__group popover__group--font">
+      <span class="popover__label">Carattere</span>
+      <div class="popover__row">
+        <button class="popover__choice is-active" data-font="serif">Serif</button>
+        <button class="popover__choice" data-font="sans">Sans</button>
+        <button class="popover__choice" data-font="mono">Mono</button>
+      </div>
+    </div>
+    <div class="popover__group popover__group--leading">
+      <span class="popover__label">Interlinea</span>
+      <div class="popover__row">
+        <button class="popover__choice" data-leading="tight">Stretto</button>
+        <button class="popover__choice is-active" data-leading="normal">Normale</button>
+        <button class="popover__choice" data-leading="loose">Ampio</button>
+      </div>
+    </div>
+    <div class="popover__group popover__group--zoom">
+      <span class="popover__label">Zoom pagina</span>
+      <div class="popover__row">
+        <button class="icon-btn icon-btn--tiny" data-zoom="out">−</button>
+        <span class="popover__value" id="zoom-value">100%</span>
+        <button class="icon-btn icon-btn--tiny" data-zoom="in">+</button>
+      </div>
+    </div>
+    <div class="popover__group popover__group--theme">
+      <span class="popover__label">Aspetto pagina</span>
+      <div class="popover__row">
+        <button class="page-theme is-active" data-page-theme="paper"><span style="background:#FBF6EC"></span>Bianco</button>
+        <button class="page-theme" data-page-theme="sepia"><span style="background:#EADDC6"></span>Beige</button>
+        <button class="page-theme" data-page-theme="night"><span style="background:#241C1E"></span>Notte</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MODALI ══════════════════════════ -->
+<div class="modal-root" id="modal-root" hidden>
+  <div class="modal-backdrop" data-close="1"></div>
+  <div class="modal" role="dialog" aria-modal="true">
+    <header class="modal__head">
+      <h3 id="modal-title">Titolo</h3>
+      <button class="icon-btn" data-close="1" aria-label="Chiudi">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </header>
+    <div class="modal__body" id="modal-body"></div>
+    <footer class="modal__foot" id="modal-foot"></footer>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<div class="dropzone" id="dropzone" hidden><div class="dropzone__inner">Rilascia qui i tuoi documenti</div></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/js/store.js"></script>
+<script src="/js/library.js"></script>
+<script src="/js/notes.js"></script>
+<script src="/js/appunti.js"></script>
+<script src="/js/flashcards.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/pdfview.js"></script>
+<script src="/js/reflow.js"></script>
+<script src="/js/reader.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
